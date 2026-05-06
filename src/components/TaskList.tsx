@@ -3,7 +3,6 @@ import { useTaskStore } from '../store/taskStore';
 import { TaskStatus } from '../types';
 import TaskItem from './TaskItem';
 import EmptyState from './ui/EmptyState';
-import Button from './ui/Button';
 
 const TaskList = React.memo(function TaskList() {
   const filteredTaskList = useTaskStore((state) => state.filteredTaskList);
@@ -11,7 +10,7 @@ const TaskList = React.memo(function TaskList() {
   const taskList = useTaskStore((state) => state.taskList);
 
   const tasks = filteredTaskList();
-  const hasCompletedTasks = taskList.some((t) => t.status === TaskStatus.COMPLETED);
+  const completedCount = taskList.filter((t) => t.status === TaskStatus.COMPLETED).length;
 
   const handleBatchDelete = useCallback(() => {
     if (window.confirm('确定删除所有已完成任务？此操作不可撤销。')) {
@@ -29,18 +28,21 @@ const TaskList = React.memo(function TaskList() {
   }
 
   return (
-    <div className="space-y-2">
-      {/* 任务列表 */}
-      {tasks.map((task) => (
-        <TaskItem key={task.id} task={task} />
+    <div className="space-y-2 animate-fade-in">
+      {tasks.map((task, index) => (
+        <div key={task.id} style={{ animationDelay: `${index * 30}ms` }} className="animate-slide-up">
+          <TaskItem task={task} />
+        </div>
       ))}
 
-      {/* 批量删除已完成 */}
-      {hasCompletedTasks && (
-        <div className="flex justify-end pt-2">
-          <Button variant="ghost" size="sm" onClick={handleBatchDelete}>
-            清除已完成任务
-          </Button>
+      {completedCount > 0 && (
+        <div className="flex justify-center pt-3 pb-1">
+          <button
+            onClick={handleBatchDelete}
+            className="text-xs text-gray-400 hover:text-red-500 transition-colors px-4 py-2 rounded-lg hover:bg-red-50"
+          >
+            清除 {completedCount} 个已完成任务
+          </button>
         </div>
       )}
     </div>

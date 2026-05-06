@@ -43,26 +43,23 @@ const Modal = React.memo(function Modal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in"
       role="dialog"
       aria-modal="true"
       aria-label={title}
     >
-      {/* 蒙层 */}
       <div
-        className="absolute inset-0 bg-black/50 transition-opacity"
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
         onClick={onClose}
       />
-      {/* 弹窗内容 */}
       <div
-        className={`relative w-full ${maxWidthStyles[maxWidth]} bg-white rounded-lg shadow-xl max-h-[85vh] flex flex-col`}
+        className={`relative w-full ${maxWidthStyles[maxWidth]} bg-white rounded-2xl shadow-glass-lg max-h-[85vh] flex flex-col animate-scale-in overflow-hidden`}
       >
-        {/* 头部 */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
           <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
           <button
             onClick={onClose}
-            className="p-1 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
             aria-label="关闭"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -70,8 +67,7 @@ const Modal = React.memo(function Modal({
             </svg>
           </button>
         </div>
-        {/* 内容区 */}
-        <div className="flex-1 overflow-y-auto px-4 py-4">
+        <div className="flex-1 overflow-y-auto px-6 py-5 scrollbar-thin">
           {children}
         </div>
       </div>

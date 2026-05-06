@@ -28,7 +28,7 @@ const Input = React.memo(function Input({
       placeholder={placeholder}
       disabled={disabled}
       autoFocus={autoFocus}
-      className={`w-full px-3 py-2 border border-gray-300 rounded-md text-base transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed placeholder:text-gray-400 ${className}`}
+      className={`w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:border-brand-400 disabled:bg-gray-50 disabled:cursor-not-allowed placeholder:text-gray-400 shadow-sm hover:shadow ${className}`}
     />
   );
 });

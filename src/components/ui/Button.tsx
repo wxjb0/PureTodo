@@ -11,16 +11,16 @@ interface ButtonProps {
 }
 
 const variantStyles: Record<string, string> = {
-  primary: 'bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-300',
-  secondary: 'bg-gray-200 text-gray-700 hover:bg-gray-300 active:bg-gray-400 focus:ring-gray-300',
-  danger: 'bg-red-500 text-white hover:bg-red-600 active:bg-red-700 focus:ring-red-300',
-  ghost: 'bg-transparent text-gray-600 hover:bg-gray-100 active:bg-gray-200 focus:ring-gray-300',
+  primary: 'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800 shadow-sm hover:shadow-md',
+  secondary: 'bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100 border border-gray-200 shadow-sm',
+  danger: 'bg-red-500 text-white hover:bg-red-600 active:bg-red-700 shadow-sm hover:shadow-md',
+  ghost: 'bg-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100 active:bg-gray-200',
 };
 
 const sizeStyles: Record<string, string> = {
-  sm: 'px-2 py-1 text-sm min-h-[32px]',
-  md: 'px-4 py-2 text-base min-h-[44px]',
-  lg: 'px-6 py-3 text-lg min-h-[48px]',
+  sm: 'px-3 py-1.5 text-xs font-medium min-h-[32px] rounded-lg',
+  md: 'px-4 py-2 text-sm font-medium min-h-[40px] rounded-xl',
+  lg: 'px-6 py-2.5 text-base font-medium min-h-[44px] rounded-xl',
 };
 
 const Button = React.memo(function Button({
@@ -37,7 +37,7 @@ const Button = React.memo(function Button({
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-50 disabled:cursor-not-allowed ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-1 disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
     >
       {children}
     </button>

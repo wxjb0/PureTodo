@@ -1,13 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { useTaskStore } from '../store/taskStore';
 import { TaskPriority } from '../types';
-import Input from './ui/Input';
-import Button from './ui/Button';
 
 const TaskInput = React.memo(function TaskInput() {
   const addTask = useTaskStore((state) => state.addTask);
   const [title, setTitle] = useState('');
   const [error, setError] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleAdd = useCallback(() => {
     const trimmed = title.trim();
@@ -37,29 +36,37 @@ const TaskInput = React.memo(function TaskInput() {
     [handleAdd]
   );
 
-  const handleChange = useCallback((value: string) => {
-    setTitle(value);
-    if (error) setError('');
-  }, [error]);
-
   return (
     <div className="w-full">
-      <div className="flex gap-2">
-        <div className="flex-1">
-          <Input
+      <div className={`flex items-center gap-2 p-1.5 rounded-2xl transition-all duration-300 ${isFocused ? 'bg-white shadow-glass-lg ring-2 ring-brand-200' : 'glass shadow-glass'}`}>
+        <div className="flex-1 relative">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+          <input
+            type="text"
             value={title}
-            onChange={handleChange}
+            onChange={(e) => {
+              setTitle(e.target.value);
+              if (error) setError('');
+            }}
             onKeyDown={handleKeyDown}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             placeholder="添加新任务，按回车确认..."
             autoFocus
+            className="w-full pl-10 pr-4 py-3 bg-transparent text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none"
           />
         </div>
-        <Button variant="primary" onClick={handleAdd}>
+        <button
+          onClick={handleAdd}
+          className="flex-shrink-0 px-5 py-2.5 bg-brand-600 text-white text-sm font-medium rounded-xl hover:bg-brand-700 active:bg-brand-800 transition-all duration-200 shadow-sm hover:shadow-md"
+        >
           添加
-        </Button>
+        </button>
       </div>
       {error && (
-        <p className="mt-1 text-sm text-red-500">{error}</p>
+        <p className="mt-2 ml-2 text-xs text-red-500 animate-fade-in">{error}</p>
       )}
     </div>
   );

@@ -7,6 +7,7 @@ interface TagChipProps {
   onRemove?: () => void;
   onClick?: () => void;
   selected?: boolean;
+  size?: 'sm' | 'md';
 }
 
 const TagChip = React.memo(function TagChip({
@@ -16,16 +17,20 @@ const TagChip = React.memo(function TagChip({
   onRemove,
   onClick,
   selected = false,
+  size = 'sm',
 }: TagChipProps) {
+  const sizeClasses = size === 'sm' ? 'px-2 py-0.5 text-xs' : 'px-3 py-1 text-sm';
+
   return (
     <span
       onClick={onClick}
-      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium transition-colors ${onClick ? 'cursor-pointer' : ''} ${selected ? 'ring-2 ring-offset-1 ring-blue-400' : ''}`}
+      className={`inline-flex items-center gap-1 rounded-full font-medium transition-all duration-200 ${sizeClasses} ${onClick ? 'cursor-pointer hover:shadow-sm' : ''} ${selected ? 'ring-2 ring-offset-1 shadow-sm' : ''}`}
       style={{
-        backgroundColor: `${color}20`,
+        backgroundColor: selected ? `${color}30` : `${color}15`,
         color: color,
-        borderColor: color,
+        borderColor: selected ? color : 'transparent',
         borderWidth: '1px',
+        ...(selected ? { ringColor: color } : {}),
       }}
     >
       {name}
@@ -35,10 +40,10 @@ const TagChip = React.memo(function TagChip({
             e.stopPropagation();
             onRemove();
           }}
-          className="ml-0.5 hover:opacity-70 transition-opacity"
+          className="ml-0.5 opacity-60 hover:opacity-100 transition-opacity"
           aria-label={`删除标签 ${name}`}
         >
-          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
