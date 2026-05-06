@@ -19,6 +19,15 @@ export default {
           800: '#3b5bdb',
           900: '#364fc7',
         },
+        macaron: {
+          pink: '#FFB5C2',
+          blue: '#B5D8FF',
+          green: '#C5E8B0',
+          yellow: '#FFE5A0',
+          lavender: '#D4B5FF',
+          peach: '#FFCBB5',
+          mint: '#B5F0E0',
+        },
       },
       boxShadow: {
         'glass': '0 4px 30px rgba(0, 0, 0, 0.05)',

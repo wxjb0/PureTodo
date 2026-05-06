@@ -29,15 +29,7 @@ const Checkbox = React.memo(function Checkbox({
       `}
     >
       {checked && (
-        <svg
-          className="w-3 h-3 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={3}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-        </svg>
+        <i className="fa-solid fa-check sketch-icon w-3 h-3 text-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       )}
     </button>
   );

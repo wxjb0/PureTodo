@@ -33,6 +33,7 @@ export interface Task {
   remindAdvance: number | null;
   createTime: string;
   updateTime: string;
+  completedTime?: string | null;
 }
 
 // 新增任务时需要传入的数据类型

@@ -38,10 +38,10 @@ const TaskItem = React.memo(function TaskItem({ task }: TaskItemProps) {
 
   const deadlineInfo = useMemo(() => {
     if (!task.deadline) return null;
-    if (isCompleted) return { text: formatDeadline(task.deadline), style: 'text-gray-400', icon: '🕐' };
-    if (isDeadlineExpired(task.deadline)) return { text: '已过期', style: 'text-red-500 font-medium', icon: '⚠️' };
-    if (isDeadlineSoon(task.deadline)) return { text: '即将到期', style: 'text-amber-600 font-medium', icon: '⏰' };
-    return { text: formatDeadline(task.deadline), style: 'text-gray-500', icon: '🕐' };
+    if (isCompleted) return { text: formatDeadline(task.deadline), style: 'text-gray-400', icon: <i className="fa-regular fa-clock sketch-icon sketch-icon-tilt-5 macaron-blue text-[10px]" /> };
+    if (isDeadlineExpired(task.deadline)) return { text: '已过期', style: 'text-red-500 font-medium', icon: <i className="fa-regular fa-triangle-exclamation sketch-icon sketch-icon-tilt-2 macaron-pink text-[10px]" /> };
+    if (isDeadlineSoon(task.deadline)) return { text: '即将到期', style: 'text-amber-600 font-medium', icon: <i className="fa-regular fa-alarm-clock sketch-icon sketch-icon-tilt-6 macaron-yellow text-[10px]" /> };
+    return { text: formatDeadline(task.deadline), style: 'text-gray-500', icon: <i className="fa-regular fa-clock sketch-icon sketch-icon-tilt-5 macaron-blue text-[10px]" /> };
   }, [task.deadline, isCompleted]);
 
   const priority = priorityConfig[task.priority];
@@ -85,7 +85,7 @@ const TaskItem = React.memo(function TaskItem({ task }: TaskItemProps) {
           ))}
           {deadlineInfo && (
             <span className={`inline-flex items-center gap-1 text-xs ${deadlineInfo.style}`}>
-              <span className="text-[10px]">{deadlineInfo.icon}</span>
+              {deadlineInfo.icon}
               {deadlineInfo.text}
             </span>
           )}
@@ -94,9 +94,7 @@ const TaskItem = React.memo(function TaskItem({ task }: TaskItemProps) {
 
       {/* 编辑提示 */}
       <div className="opacity-0 group-hover:opacity-100 transition-opacity pt-1">
-        <svg className="w-4 h-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-        </svg>
+        <i className="fa-regular fa-pencil sketch-icon sketch-icon-tilt-3 w-4 h-4 text-gray-300" />
       </div>
     </div>
   );

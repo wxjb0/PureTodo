@@ -37,6 +37,10 @@ interface TaskStoreState {
 
   // 计算属性：过滤后的任务列表
   filteredTaskList: () => Task[];
+
+  // 数据导入导出
+  exportData: () => string;
+  importData: (jsonStr: string) => boolean;
 }
 
 export const useTaskStore = create<TaskStoreState>()(
@@ -66,7 +70,8 @@ export const useTaskStore = create<TaskStoreState>()(
           deadline: taskData.deadline || null,
           remindAdvance: taskData.remindAdvance || null,
           createTime: formatISO(new Date()),
-          updateTime: formatISO(new Date())
+          updateTime: formatISO(new Date()),
+          completedTime: null
         };
         set((state) => ({
           taskList: [newTask, ...state.taskList]
@@ -90,7 +95,12 @@ export const useTaskStore = create<TaskStoreState>()(
               const newStatus = task.status === TaskStatus.PENDING
                 ? TaskStatus.COMPLETED
                 : TaskStatus.PENDING;
-              return { ...task, status: newStatus, updateTime: formatISO(new Date()) };
+              return {
+                ...task,
+                status: newStatus,
+                updateTime: formatISO(new Date()),
+                completedTime: newStatus === TaskStatus.COMPLETED ? formatISO(new Date()) : null
+              };
             }
             return task;
           })
@@ -172,6 +182,26 @@ export const useTaskStore = create<TaskStoreState>()(
           isEditModalOpen: false,
           currentEditTaskId: null
         });
+      },
+
+      exportData: () => {
+        const { taskList, tagList } = get();
+        return JSON.stringify({ taskList, tagList, exportTime: formatISO(new Date()), version: 1 }, null, 2);
+      },
+
+      importData: (jsonStr) => {
+        try {
+          const data = JSON.parse(jsonStr);
+          if (!data.taskList || !Array.isArray(data.taskList)) return false;
+          if (!data.tagList || !Array.isArray(data.tagList)) return false;
+          set({
+            taskList: data.taskList,
+            tagList: data.tagList
+          });
+          return true;
+        } catch {
+          return false;
+        }
       },
 
       filteredTaskList: () => {

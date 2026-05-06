@@ -40,9 +40,7 @@ const TaskInput = React.memo(function TaskInput() {
     <div className="w-full">
       <div className={`flex items-center gap-2 p-1.5 rounded-2xl transition-all duration-300 ${isFocused ? 'bg-white shadow-glass-lg ring-2 ring-brand-200' : 'glass shadow-glass'}`}>
         <div className="flex-1 relative">
-          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-          </svg>
+          <i className="fa-regular fa-plus sketch-icon sketch-icon-tilt-2 absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-brand-400" />
           <input
             type="text"
             value={title}
@@ -55,6 +53,7 @@ const TaskInput = React.memo(function TaskInput() {
             onBlur={() => setIsFocused(false)}
             placeholder="添加新任务，按回车确认..."
             autoFocus
+            data-task-input
             className="w-full pl-10 pr-4 py-3 bg-transparent text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none"
           />
         </div>

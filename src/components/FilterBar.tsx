@@ -4,16 +4,16 @@ import { TaskStatus, TaskPriority } from '../types';
 import TagChip from './TagChip';
 
 const statusOptions = [
-  { value: 'all' as const, label: '全部', icon: '◯' },
-  { value: TaskStatus.PENDING, label: '待办', icon: '○' },
-  { value: TaskStatus.COMPLETED, label: '完成', icon: '●' },
+  { value: 'all' as const, label: '全部', icon: <i className="fa-regular fa-circle-dashed sketch-icon text-[10px]" /> },
+  { value: TaskStatus.PENDING, label: '待办', icon: <i className="fa-regular fa-circle sketch-icon text-[10px]" /> },
+  { value: TaskStatus.COMPLETED, label: '完成', icon: <i className="fa-regular fa-circle-check sketch-icon text-[10px]" /> },
 ];
 
 const priorityOptions = [
-  { value: 'all' as const, label: '全部', color: 'text-gray-500' },
-  { value: TaskPriority.HIGH, label: '高', color: 'text-red-500' },
-  { value: TaskPriority.MEDIUM, label: '中', color: 'text-amber-500' },
-  { value: TaskPriority.LOW, label: '低', color: 'text-gray-400' },
+  { value: 'all' as const, label: '全部', color: 'text-gray-500', icon: <i className="fa-regular fa-circle sketch-icon text-[8px]" /> },
+  { value: TaskPriority.HIGH, label: '高', color: 'text-red-500', icon: <i className="fa-regular fa-circle sketch-icon text-[8px]" /> },
+  { value: TaskPriority.MEDIUM, label: '中', color: 'text-amber-500', icon: <i className="fa-regular fa-circle sketch-icon text-[8px]" /> },
+  { value: TaskPriority.LOW, label: '低', color: 'text-gray-400', icon: <i className="fa-regular fa-circle sketch-icon text-[8px]" /> },
 ];
 
 const FilterBar = React.memo(function FilterBar() {
@@ -57,12 +57,12 @@ const FilterBar = React.memo(function FilterBar() {
             <button
               key={opt.value}
               onClick={() => handleStatusChange(opt.value)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${filterParams.status === opt.value
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 flex items-center gap-1 ${filterParams.status === opt.value
                 ? 'bg-brand-500 text-white shadow-sm shadow-brand-200'
                 : 'bg-white/60 text-gray-600 hover:bg-white hover:shadow-sm border border-gray-100'
                 }`}
             >
-              {opt.label}
+              {opt.icon} {opt.label}
             </button>
           ))}
         </div>
@@ -76,13 +76,13 @@ const FilterBar = React.memo(function FilterBar() {
             <button
               key={opt.value}
               onClick={() => handlePriorityChange(opt.value)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${filterParams.priority === opt.value
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 flex items-center gap-1 ${filterParams.priority === opt.value
                 ? 'bg-brand-500 text-white shadow-sm shadow-brand-200'
                 : 'bg-white/60 text-gray-600 hover:bg-white hover:shadow-sm border border-gray-100'
                 }`}
             >
-              <span className={filterParams.priority === opt.value ? '' : opt.color}>●</span>
-              {' '}{opt.label}
+              <span className={filterParams.priority === opt.value ? '' : opt.color}>{opt.icon}</span>
+              {opt.label}
             </button>
           ))}
         </div>
